@@ -1,0 +1,19 @@
+name: "Robot Tweet"
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  tweeper:
+    name: "Run a tweet"
+    if: github.event.label.name == 'good first issue'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+      - run: | 
+        pip3 install tweepy 
+        python3 send_tweet.py ${{secrets.SECRET_KEY}} ${{secrets.CONSUMER_KEY}} ${{secrets.ACCESS_TOKEN_SECRET}} ${{secrets.ACCESS_TOKEN}} https://github.com/${{github.actor}}/${{github.event.repository.name}}/issues/${{github.event.issue.number}}
