@@ -14,6 +14,6 @@ jobs:
       with:
         python-version: '3.x'
         architecture: 'x64'
-      - run: | 
+    - run: | 
         pip3 install tweepy 
         python3 send_tweet.py ${{secrets.SECRET_KEY}} ${{secrets.CONSUMER_KEY}} ${{secrets.ACCESS_TOKEN_SECRET}} ${{secrets.ACCESS_TOKEN}} https://github.com/${{github.actor}}/${{github.event.repository.name}}/issues/${{github.event.issue.number}}
